@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify,render_template
 from models import livros
 
 livros_blueprint = Blueprint('livros', __name__, url_prefix='/livros')
@@ -24,3 +24,8 @@ def adicionar_livro():
 
     except Exception as e:
         return jsonify({"erro": str(e)}), 400  # Retorna erro caso algo dê errado
+
+@livros_blueprint.route('/listar_livros')
+def listar_livros():
+    livros_cadastrados = livros.Livros.buscar_todos()
+    return render_template('listar_livros.html', livros=livros_cadastrados)

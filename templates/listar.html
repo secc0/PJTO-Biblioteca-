@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ClickBooks</title>
+    <link rel="icon" href="img/brand_hello_kitty_icon_158867.png" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/listar.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Adiciona as folhas de estilo do Slick Carousel -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
+</head>
+
+<body>
+
+    <div class="header" id="topo">
+        <div class="container">
+            <div class="navbar">
+                <!--CLASSE LOGO E CHAMADA DA LOGO-->
+                <div class="logo">
+                    <a href="#topo"><img src="https://cdn-icons-png.flaticon.com/512/5999/5999928.png" width="60px" height="55"></a>
+
+                </div>
+                <!--NAVEGAÇÃO DA PÁGINA-->
+                <nav>
+                    <ul>
+                        <li><a href="#">CADASTRAR</a></li>
+                        <li><a href="#em-destaque">DESTAQUE</a></li>
+                        <li><a href="#ultimos-produtos">TEMAS</a></li>
+                        <li><a href="#sobre">SOBRE</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="small-container">
+        <br>
+        <h2 class="titulo" id="em-destaque">Livros Em Destaque</h2>
+        <br><br>
+        <br><br>
+        <div class="row">
+            <div class="col-4">
+                <img src="img/produto4.webp">
+                <h4>AAA</h4>
+            </div>
+            <div class="col-4">
+                <img src="img/produto2.webp">
+                <h4>AAA</h4>
+            </div>
+            <div class="col-4">
+                <img src="img/produto3.webp">
+                <h4>AAA</h4>
+            </div>
+            <div class="col-4">
+                <img src="img/produto1.webp">
+                <h4>AAA</h4>
+            </div>
+        </div>
+        <br> <br>
+        <h2 class="titulo" id="ultimos-produtos">NA LISTA</h2>
+        <!-- Adicionado o identificador "ultimos-produtos" -->
+        <br><br>
+        <br><br>
+        <br><br>
+        <div id="carousel-container" class="row slider">
+            <div class="col-4">
+                <img src="img/umlprod1.jpg">
+                <h4>CRIMINAL</h4>
+            </div>
+            <div class="col-4">
+                <img src="img/ultprod2.avif">
+                <h4>AVENTURA</h4>
+            </div>
+            <div class="col-4">
+                <img src="img/ultprod3.jpg">
+                <h4>TERROR</h4>
+            </div>
+            <div class="col-4">
+                <img src="img/ultprod4.webp">
+                <h4>DRAMA</h4>
+            </div>
+
+            <div class="col-4">
+                <img src="img/produto4.webp">
+                <h4>ROMANCE</h4>
+            </div>
+            <div class="col-4">
+                <img src="img/produto4.webp">
+                <h4>INFANTIL</h4>
+            </div>
+            <div class="col-4">
+                <img src="img/produto4.webp">
+                <h4>DARKROMANCE</h4>
+            </div>
+            <div class="col-4">
+                <img src="img/produto4.webp">
+                <h4>POEMA</h4>
+            </div>
+        </div>
+
+
+    </div>
+    <footer>
+        <div class="container" id="sobre">
+            <div class="footer-content">
+                <div class="contacts">
+                    <h3>Contatos</h3>
+                    <ul>
+                        <li>Email: timehellome@gmail.com</li>
+                        <li>Telefone: (+55) 11 955544478</li>
+                    </ul>
+                </div>
+                <div class="social-media">
+                    <h3>Redes Sociais</h3>
+                    <div class="social-media-icons">
+                        <a href="https://github.com/seu_usuario_github" target="_blank"><i
+                                class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/seu_usuario_linkedin" target="_blank"><i
+                                class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="reclame-aqui">
+                    <h3>Reclame Aqui</h3>
+                    <a href="#">bota o link q leva pro wpp</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.slider').slick({
+                slidesToShow: 3, // Quantidade de slides exibidos
+                slidesToScroll: 1, // Quantidade de slides a serem rolados
+                autoplay: true, // Auto rolamento
+                autoplaySpeed: 2000, // Velocidade do auto rolamento
+                arrows: true, // Exibir setas de navegação
+                responsive: [
+                    {
+                        breakpoint: 768, // Tamanho da tela em que o carrossel será responsivo
+                        settings: {
+                            slidesToShow: 2 // Altera a quantidade de slides exibidos em telas menores
+                        }
+                    },
+                    {
+                        breakpoint: 480, // Tamanho da tela em que o carrossel será responsivo
+                        settings: {
+                            slidesToShow: 1 // Altera a quantidade de slides exibidos em telas menores
+                        }
+                    }
+                ]
+            });
+
+            // Adiciona o comportamento de rolagem suave aos links do menu
+            $('a[href*="#"]').on('click', function (e) {
+                e.preventDefault();
+
+                $('html, body').animate(
+                    {
+                        scrollTop: $($(this).attr('href')).offset().top
+                    },
+                    500,
+                    'linear'
+                );
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
