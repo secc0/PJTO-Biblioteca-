@@ -16,7 +16,8 @@ def adicionar_livro():
             titulo=dados["titulo"], 
             autor=dados["autor"], 
             publicacao=dados["publicacao"], 
-            tema=dados["tema"]
+            tema=dados["tema"],
+            imagem=dados["imagem"]
         )
 
         livro.salvar()
@@ -27,5 +28,5 @@ def adicionar_livro():
 
 @livros_blueprint.route('/listar_livros')
 def listar_livros():
-    livros_cadastrados = livros.Livros.buscar_todos()
-    return render_template('listar_livros.html', livros=livros_cadastrados)
+    livros_cadastrados = livros.buscar_todos()
+    return jsonify(livros_cadastrados), 200

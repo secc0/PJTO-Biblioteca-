@@ -251,6 +251,41 @@ col-4 p {
     /* Move a coluna para cima quando passa o mouse sobre ela */
 }
 
+
+#carousel-container {
+    max-width: 1000px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+    overflow: hidden; /* Esconde a barra de rolagem */
+}
+
+#carousel {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Garante que os itens fiquem alinhados à esquerda */
+    overflow-x: scroll; /* Permite rolar horizontalmente */
+    scroll-snap-type: x mandatory; /* Snap scrolling (rolagem com ajuste automático) */
+}
+
+#carousel .col-4 {
+    flex: 0 0 auto; /* Impede que os itens se ajustem automaticamente */
+    width: 25%; /* Define a largura de cada item do carrossel */
+    padding: 10px;
+    transition: transform .5s;
+    margin-bottom: 50px;
+    scroll-snap-align: start; /* Alinha cada item com o início do contêiner */
+}
+
+#carousel .col-4 img {
+    width: 100%; /* Faz com que a imagem ocupe toda a largura disponível */
+    height: 310px;
+}
+
+#carousel .col-4:hover {
+    transform: translateY(-5px);
+}
+
 /* Estilos para o footer */
 footer {
     background-color: #f5f5f5;
