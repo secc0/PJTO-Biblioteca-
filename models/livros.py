@@ -45,6 +45,34 @@ class Livros:
         except Exception as e:
             print(f"Erro ao inserir livro: {e}")
 
+    def deletar(self, titulo):
+        try:
+            if conexao.is_connected():
+                sql = "DELETE FROM LIVROS WHERE titulo = %s"
+                cursor = conexao.cursor()
+                cursor.execute(sql, (titulo,))
+                conexao.commit()
+                print(f"Livro excluido com sucesso")
+            else:
+                print("aqui deu ruim.")
+        except Exception as e:
+            print(f"Erro ao inserir livro: {e}")        
+
+    def atualizar(self, titulo, atualizar, autor, publicacao, tema, imagem):
+        try:
+            if conexao.is_connected():
+                sql = """UPDATE LIVROS;
+                  SET titulo = %s, autor = %s, publicacao = %s, tema = %s, imagem = %s;
+                    WHERE titulo = %s"""
+                cursor = conexao.cursor()
+                cursor.execute(sql, (atualizar, autor, publicacao, tema, imagem, titulo))
+                conexao.commit()
+                print(f"Livro atualizado com sucesso")
+            else:
+                print("aqui deu ruim.")
+        except Exception as e:
+            print(f"Erro ao inserir livro: {e}")        
+
 @staticmethod
 def buscar_todos():
     try:
