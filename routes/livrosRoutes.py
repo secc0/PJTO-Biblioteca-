@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify,render_template, redirect, url_for
+from flask import Blueprint, request, jsonify,render_template
 from models.livros import Livros
 
 livros_blueprint = Blueprint('livros', __name__, url_prefix='/livros')
@@ -21,7 +21,7 @@ def adicionar_livro():
         )
 
         livro.salvar()
-        return redirect(url_for('livros.listar_livros'))
+        return render_template('listar.html', livros=Livros)
 
     except Exception as e:
         return jsonify({"erro": str(e)}), 400  
