@@ -1,12 +1,7 @@
-from flask import Blueprint, request, jsonify,render_template
+from flask import Blueprint, request, jsonify,render_template,redirect, url_for
 from models.livros import Livros
 
 livros_blueprint = Blueprint('livros', __name__, url_prefix='/livros')
-
-@livros_blueprint.route('/')
-def homeLivros():
-    return "<p>Hello, World!</p>"
-
 
 @livros_blueprint.route('/adicionar_livro', methods=['POST'])
 def adicionar_livro():
@@ -21,7 +16,7 @@ def adicionar_livro():
         )
 
         livro.salvar()
-        return render_template('listar.html', livros=Livros)
+        return redirect(url_for('livros.listar_livros'))
 
     except Exception as e:
         return jsonify({"erro": str(e)}), 400  
