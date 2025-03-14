@@ -11,7 +11,7 @@ def homeLivros():
 @livros_blueprint.route('/adicionar_livro', methods=['POST'])
 def adicionar_livro():
     try:
-        dados = request.form  # Pegando os dados corretamente
+        dados = request.form  
         livro = Livros(
             titulo=dados["titulo"], 
             autor=dados["autor"], 
@@ -24,12 +24,12 @@ def adicionar_livro():
         return redirect(url_for('livros.listar_livros'))
 
     except Exception as e:
-        return jsonify({"erro": str(e)}), 400  # Retorna erro caso algo dê errado
+        return jsonify({"erro": str(e)}), 400  
 
 @livros_blueprint.route('/deletar_livro', methods=['DELETE'])
 def deletar_livro():
     try:
-        dados = request.json  # Pegando os dados corretamente
+        dados = request.json  
         titulo = dados["titulo"]
 
         livro = Livros(
@@ -44,7 +44,7 @@ def deletar_livro():
         return jsonify({"mensagem": "Livro excluido com sucesso!"}), 201
 
     except Exception as e:
-        return jsonify({"erro": str(e)}), 400  # Retorna erro caso algo dê errado
+        return jsonify({"erro": str(e)}), 400  
 
 @livros_blueprint.route('/atualizar_livro', methods=['PUT'])
 def atualizar_livro():
@@ -52,13 +52,12 @@ def atualizar_livro():
         dados = request.json
 
         titulo_atual = dados["titulo"]        
-        atualizar = dados.get("atualizar")  # Novo título (opcional)
+        atualizar = dados.get("atualizar")  
         autor = dados.get("autor")
         publicacao = dados.get("publicacao")
         tema = dados.get("tema")
         imagem = dados.get("imagem")
 
-        # Agora chamamos o método estático diretamente
         Livros.atualizar(titulo_atual, atualizar, autor, publicacao, tema, imagem)
 
         return jsonify({"mensagem": "Livro atualizado com sucesso!"}), 200

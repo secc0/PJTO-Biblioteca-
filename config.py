@@ -5,8 +5,8 @@ def conectar_bd():
         conexao = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="joao2504",
-            database="teste"
+            password="senha123",
+            database="bibliotech"
         )
         if conexao.is_connected():
             print("Conectado ao banco de dados!")
