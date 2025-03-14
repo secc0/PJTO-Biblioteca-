@@ -13,7 +13,6 @@ class Livros:
     def criar_tabela():
         try:
             if conexao.is_connected():
-                # Comando SQL para criar a tabela 'livros' se ela não existir
                 sql = """
                 CREATE TABLE IF NOT EXISTS livros (
                     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -56,12 +55,13 @@ class Livros:
             else:
                 print("aqui deu ruim.")
         except Exception as e:
-            print(f"Erro ao inserir livro: {e}")        
+            print(f"Erro ao inserir livro: {e}")    
 
     @staticmethod
     def atualizar(titulo, atualizar, autor, publicacao, tema, imagem):
         try:
             if conexao.is_connected():
+                print("opa")
                 sql = """UPDATE livros 
                          SET titulo = %s, autor = %s, publicacao = %s, tema = %s, imagem = %s 
                          WHERE titulo = %s"""
@@ -72,7 +72,7 @@ class Livros:
             else:
                 print("Erro: Conexão com o banco não está ativa.")
         except Exception as e:
-            print(f"Erro ao atualizar livro: {e}")
+            print(f"Erro ao atualizar livro: {e}")      
 
     @staticmethod
     def buscar_todos():
@@ -80,7 +80,6 @@ class Livros:
             if conexao.is_connected():
                 cursor.execute("SELECT * FROM livros")
                 livros = cursor.fetchall()
-                # tupla p dic
                 livros_list = [
                     {
                         'id': livro[0],
@@ -93,11 +92,11 @@ class Livros:
                 ]
                 return livros_list
             else:
-                    print("Erro: Conexão com o banco não está ativa.")
-                    return []
+                print("Erro: Conexão com o banco não está ativa.")
+                return []
         except mysql.connector.Error as err:
-                print(f"Erro ao buscar livros: {err}")
-                return []
+            print(f"Erro ao buscar livros: {err}")
+            return []
         except Exception as e:
-                print(f"Erro inesperado ao buscar livros: {e}")
-                return []
+            print(f"Erro inesperado ao buscar livros: {e}")
+            return []

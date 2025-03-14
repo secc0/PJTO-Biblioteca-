@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify,render_template
+from flask import Blueprint, request, jsonify,render_template, redirect, url_for
 from models.livros import Livros
 
 livros_blueprint = Blueprint('livros', __name__, url_prefix='/livros')
@@ -11,7 +11,7 @@ def homeLivros():
 @livros_blueprint.route('/adicionar_livro', methods=['POST'])
 def adicionar_livro():
     try:
-        dados = request.json  # Pegando os dados corretamente
+        dados = request.form  # Pegando os dados corretamente
         livro = Livros(
             titulo=dados["titulo"], 
             autor=dados["autor"], 
@@ -21,7 +21,7 @@ def adicionar_livro():
         )
 
         livro.salvar()
-        return jsonify({"mensagem": "Livro adicionado com sucesso!"}), 201
+        return redirect(url_for('livros.listar_livros'))
 
     except Exception as e:
         return jsonify({"erro": str(e)}), 400  # Retorna erro caso algo dê errado
@@ -65,7 +65,6 @@ def atualizar_livro():
 
     except Exception as e:
         return jsonify({"erro": f"Erro ao atualizar livro: {str(e)}"}), 400
-
 
 
 @livros_blueprint.route('/listar_livros')
