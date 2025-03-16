@@ -21,7 +21,7 @@ def adicionar_livro():
         )
 
         livro.salvar()
-        return redirect(url_for('livros.listar_livros'))
+        return redirect(url_for('listar'))
 
     except Exception as e:
         return jsonify({"erro": str(e)}), 400  # Retorna erro caso algo dê errado

@@ -151,7 +151,7 @@
     }
     function atualizarLivro() {
     Swal.fire({
-        title: 'Digite o título do livro que deseja atualizar',
+        title: 'Digite um novo título',
         input: 'text',
         inputAttributes: { autocapitalize: 'off' },
         showCancelButton: true,
@@ -224,8 +224,13 @@
                         icon: 'error'
                     });
                 }
+                
             });
+            setTimeout(() => {
+                    location.reload();
+                }, 1000);
         }
+
     });
 }
 
