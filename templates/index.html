@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Adiciona as folhas de estilo do Slick Carousel -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
@@ -24,12 +25,13 @@
     <div class="header" id="topo">
         <div class="container">
             <div class="navbar">
+                <!--CLASSE LOGO E CHAMADA DA LOGO-->
                 <div class="logo">
                     <a href="#topo"><img src="https://cdn-icons-png.flaticon.com/512/5999/5999928.png" width="60px"
                             height="55"></a>
 
                 </div>
-
+                <!--NAVEGAÇÃO DA PÁGINA-->
                 <nav>
                     <ul>
                         <li><a href="#em-destaque">DESTAQUE</a></li>
@@ -38,6 +40,7 @@
                     </ul>
                 </nav>
             </div>
+            <!--LETREIRO PRINCIPAL-->
             <div class="row">
                 <div class="col-2">
                     <h1>Um Passo Para<br>A Leitura Perfeita!</h1>
@@ -46,6 +49,7 @@
                     </p>
                     <a href="{{ url_for('listar') }}" class="btn">EXPLORAR &#10146;</a>
                 </div>
+                <!---->
                 <div class="col-2">
                     <img src="">
                 </div>
@@ -109,29 +113,30 @@
     <script>
         $(document).ready(function () {
             $('.slider').slick({
-                slidesToShow: 3,
-                slidesToScroll: 1, 
-                autoplay: true, 
-                autoplaySpeed: 2000, 
-                arrows: true, 
-                prevArrow: '<button type="button" class="slick-prev">Previous</button>', 
-                nextArrow: '<button type="button" class="slick-next">Next</button>', 
+                slidesToShow: 3, // Quantidade de slides exibidos
+                slidesToScroll: 1, // Quantidade de slides a serem rolados
+                autoplay: true, // Auto rolamento
+                autoplaySpeed: 2000, // Velocidade do auto rolamento
+                arrows: true, // Exibir setas de navegação
+                prevArrow: '<button type="button" class="slick-prev">Previous</button>', // Personaliza a seta de navegação anterior
+                nextArrow: '<button type="button" class="slick-next">Next</button>', // Personaliza a seta de navegação seguinte
                 responsive: [
                     {
-                        breakpoint: 768, 
+                        breakpoint: 768, // Tamanho da tela em que o carrossel será responsivo
                         settings: {
-                            slidesToShow: 2 
+                            slidesToShow: 2 // Altera a quantidade de slides exibidos em telas menores
                         }
                     },
                     {
-                        breakpoint: 480, 
+                        breakpoint: 480, // Tamanho da tela em que o carrossel será responsivo
                         settings: {
-                            slidesToShow: 1 
+                            slidesToShow: 1 // Altera a quantidade de slides exibidos em telas menores
                         }
                     }
                 ]
             });
 
+            // Adiciona o comportamento de rolagem suave aos links do menu
             $('a[href*="#"]').on('click', function (e) {
                 e.preventDefault();
 
