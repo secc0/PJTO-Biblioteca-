@@ -9,28 +9,6 @@ class Livros:
         self.tema = tema
         self.imagem = imagem
 
-    @staticmethod
-    def criar_tabela():
-        try:
-            if conexao.is_connected():
-                sql = """
-                CREATE TABLE IF NOT EXISTS livros (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    titulo VARCHAR(255) NOT NULL,
-                    autor VARCHAR(255) NOT NULL,
-                    publicacao DATE NOT NULL,
-                    tema VARCHAR(255) NOT NULL,
-                    imagem VARCHAR(255) NOT NULL
-                );
-                """
-                cursor.execute(sql)
-                conexao.commit()
-                print("Tabela 'livros' criada com sucesso!")
-            else:
-                print("Erro: Conexão com o banco não está ativa.")
-        except Exception as e:
-            print(f"Erro ao criar tabela: {e}")
-
     def salvar(self):
         try:
             if conexao.is_connected():
