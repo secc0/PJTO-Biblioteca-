@@ -1,4 +1,4 @@
-from flask import request, jsonify, redirect, url_for, make_response, render_template
+from flask import session, request, jsonify, redirect, url_for, make_response, render_template
 from models.usuarios import Usuarios
 
 def adicionar_usuario():
@@ -54,10 +54,12 @@ def processar_login():
         if not email or not senha:
             return render_template("login.html", erro="Preencha todos os campos.")
 
-        if Usuarios.autenticar(email, senha):
-            resposta = make_response(redirect(url_for("livros.listar")))
-            resposta.set_cookie("email", email)
-            return resposta
+        resultado = Usuarios.autenticar(email, senha)
+
+        if resultado:
+            session['user'] = resultado['id']
+            session['perfil'] = resultado['perfil']
+            return redirect(url_for("listar"))
         else:
             return render_template("login.html", erro="Usuário ou senha incorretos.")
     except Exception as e:

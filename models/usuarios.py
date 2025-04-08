@@ -1,5 +1,6 @@
 from config import conexao, cursor
 import mysql.connector
+from passlib.hash import bcrypt
 
 class Usuarios:
     def __init__(self, nome, telefone, email, senha, perfil):
@@ -20,7 +21,8 @@ class Usuarios:
                     return {"erro": f"E-mail '{self.email}' já está cadastrado."}, 400
                 else:
                     sql_inserir = "INSERT INTO usuarios (nome, telefone, email, senha, perfil) VALUES (%s, %s, %s, %s, %s)"
-                    valores = (self.nome, self.telefone, self.email, self.senha, self.perfil)
+                    senha_hashed = bcrypt.hash(self.senha)
+                    valores = (self.nome, self.telefone, self.email, senha_hashed, self.perfil)
                     cursor.execute(sql_inserir, valores)
                     conexao.commit()
                     return({"sucesso": f"Usuário '{self.nome}' adicionado com sucesso!"}), 200
@@ -69,12 +71,21 @@ class Usuarios:
 
 
     @staticmethod
-    def autenticar(email, senha):
+    def autenticar(email, senhaDigitada):
         try:
             cursor = conexao.cursor()
-            sql = "SELECT perfil FROM usuarios WHERE email = %s AND senha = %s"
-            cursor.execute(sql, (email, senha))
-            return cursor.fetchone()
+            sql = "SELECT id, senha, perfil FROM usuarios WHERE email = %s"
+            cursor.execute(sql, (email,))
+            resultado = cursor.fetchone()
+            if not resultado:
+                return None
+
+            user_id, senhaDoBanco, perfil = resultado
+            print("DEBUG → linha do BD:", resultado)
+            if bcrypt.verify(senhaDigitada, senhaDoBanco):
+                return {"id": user_id, "perfil": perfil}
+            else:
+                return None  # senha incorreta
         except Exception as e:
             print("Erro na autenticação:", e)
             return None

@@ -15,7 +15,7 @@ def adicionar_livro():
             imagem=dados["imagem"]
         )
         livro.salvar()
-        return redirect(url_for('livros.listar'))
+        return redirect(url_for('listar'))
 
     except Exception as e:
         return f"Erro ao adicionar livro: {str(e)}", 400
@@ -33,6 +33,7 @@ def deletar_livro():
             imagem=dados.get("imagem")
         )
         livro.deletar(titulo)
+        print("Livro excluído com sucesso!"), 200
         return jsonify({"mensagem": "Livro excluído com sucesso!"}), 201
 
     except Exception as e:

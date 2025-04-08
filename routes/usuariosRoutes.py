@@ -5,7 +5,7 @@ from controllers.usuariosController import (
     atualizar_usuario,
     processar_login
 )
-from decorators.autenticacao import login_usuario, somente_admin
+from decorators.autenticacao import  somente_admin
 
 usuarios_blueprint = Blueprint('usuarios', __name__, url_prefix='/usuarios')
 
@@ -14,6 +14,7 @@ def adicionar():
     return adicionar_usuario()
 
 @usuarios_blueprint.route('/deletar_usuario', methods=['DELETE'])
+@somente_admin()
 def excluir():
     return excluir_usuario()
 
