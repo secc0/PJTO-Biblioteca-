@@ -1,9 +1,9 @@
-from flask import session, request, jsonify, redirect, url_for, make_response, render_template
+from flask import session, request, jsonify, redirect, url_for, make_response, render_template, flash
 from models.usuarios import Usuarios
 
 def adicionar_usuario():
     try:
-        dados = request.json
+        dados = request.form
         usuario = Usuarios(
             nome=dados["nome"],
             telefone=dados["telefone"],
@@ -13,7 +13,14 @@ def adicionar_usuario():
         )
 
         resposta, status = usuario.salvar()
-        return jsonify(resposta), status
+        if status == 200:
+            flash('Usuário cadastrado com sucesso!', 'sucesso')
+            return redirect(url_for('login'))
+
+
+        else:
+            flash(resposta.get('mensagem', 'Erro ao salvar usuário.'), 'erro')
+            return redirect(url_for('usuarios.cadastro'))
 
     except Exception as e:
         return f"Erro ao criar usuário: {str(e)}", 400

@@ -31,6 +31,8 @@ def cadastro():
     return render_template('cadastro.html')
 
 
+
+
 app.register_blueprint(livros_blueprint)
 app.register_blueprint(usuarios_blueprint)
 

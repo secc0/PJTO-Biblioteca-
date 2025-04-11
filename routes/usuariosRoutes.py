@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, redirect, url_for
+from flask import Blueprint, request, jsonify, redirect, url_for,render_template
 from controllers.usuariosController import (
     adicionar_usuario,
     excluir_usuario,
@@ -25,3 +25,7 @@ def atualizar():
 @usuarios_blueprint.route("/login", methods=["POST"])
 def logar():
     return processar_login()
+
+@usuarios_blueprint.route('/cadastro_usuario')
+def cadastro_usuario():
+    return render_template('cadastro_user.html')
