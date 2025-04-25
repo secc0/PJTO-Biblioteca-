@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, redirect, url_for,render_template
+from flask import Blueprint, request, jsonify, redirect, url_for,render_template, session
 from controllers.usuariosController import (
     adicionar_usuario,
     excluir_usuario,
@@ -22,10 +22,16 @@ def excluir():
 def atualizar():
     return atualizar_usuario()
 
-@usuarios_blueprint.route("/login", methods=["POST"])
+@usuarios_blueprint.route("/login", methods=["GET", "POST"])
 def logar():
-    return processar_login()
+    if request.method == "GET":
+        return render_template("login.html")
+    return processar_login()  # Mantém sua lógica POST existente
 
 @usuarios_blueprint.route('/cadastro_usuario')
 def cadastro_usuario():
     return render_template('cadastro_user.html')
+
+@usuarios_blueprint.route("/teste-sessao")
+def teste_sessao():
+    return f"Sessão atual: {dict(session)}"

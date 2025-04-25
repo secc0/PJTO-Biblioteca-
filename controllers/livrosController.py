@@ -1,4 +1,4 @@
-from flask import request, jsonify, redirect, url_for
+from flask import request, jsonify, redirect, url_for, render_template
 from models.livros import Livros
 
 def homeLivros():
@@ -15,7 +15,7 @@ def adicionar_livro():
             imagem=dados["imagem"]
         )
         livro.salvar()
-        return redirect(url_for('listar'))
+        return redirect(url_for('front.listar'))
 
     except Exception as e:
         return f"Erro ao adicionar livro: {str(e)}", 400
@@ -62,3 +62,15 @@ def listar_livros():
         return jsonify(livros_cadastrados), 200
     except Exception as e:
         return jsonify({"erro": f"Erro ao listar livros: {str(e)}"}), 400
+
+def listar_um_livro(titulo):
+    try:
+        livro = Livros.buscar_livro(titulo)
+        if not livro:
+            return "Livro não encontrado", 404
+        return render_template("livro.html", livro=livro)
+    except Exception as e:
+        print(f"Erro: {e}")
+        return "Erro ao carregar livro", 500
+
+

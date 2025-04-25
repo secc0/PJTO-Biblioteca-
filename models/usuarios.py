@@ -1,6 +1,6 @@
 from config import conexao, cursor
-import mysql.connector
 from passlib.hash import bcrypt
+
 
 class Usuarios:
     def __init__(self, nome, telefone, email, senha, perfil):
@@ -56,18 +56,19 @@ class Usuarios:
     def atualizar(nome, telefone, email, senha, perfil):
         try:
             if conexao.is_connected():
-                print("opa")
                 sql = """UPDATE usuarios 
-                        SET telefone = %s, email = %s, senha = %s, perfil = %s
-                        WHERE nome = %s"""
+                        SET telefone = %s, senha = %s, perfil = %s 
+                        WHERE email = %s"""
                 cursor = conexao.cursor()
-                cursor.execute(sql, (telefone, email, senha, perfil, nome))
+                senha_hashed = bcrypt.hash(senha)
+                cursor.execute(sql, (telefone, senha_hashed, perfil, email))
                 conexao.commit()
                 print(f"Usuário '{nome}' atualizado com sucesso!")
             else:
                 print("Erro: Conexão com o banco não está ativa.")
         except Exception as e:
             print(f"Erro ao atualizar usuário: {e}")
+
 
 
     @staticmethod
@@ -83,7 +84,11 @@ class Usuarios:
             user_id, senhaDoBanco, perfil = resultado
             print("DEBUG → linha do BD:", resultado)
             if bcrypt.verify(senhaDigitada, senhaDoBanco):
-                return {"id": user_id, "perfil": perfil}
+                return {
+                    'id': user_id,
+                    'perfil': perfil,
+                    'email': email  # Adicione mais dados se necessário
+                }
             else:
                 return None  # senha incorreta
         except Exception as e:

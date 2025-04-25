@@ -61,6 +61,9 @@
           <!--NAVEGAÇÃO DA PÁGINA-->
           <nav>
             <ul>
+              <li><a href="#" onclick="deletarlivro()">DELETAR</a></li>
+              <a href="{{ url_for('front.cadastro') }}">CADASTRAR</a>
+              <li><a href="#" onclick="atualizarLivro()">ATUALIZAR</a></li>
               <li><a href="#em-destaque">DESTAQUE</a></li>
               <li><a href="#ultimos-produtos">NA LISTA</a></li>
               <li><a href="#sobre">SOBRE</a></li>
@@ -306,17 +309,18 @@
           let innerhtml = "";
           console.log(response);
           response.forEach((element) => {
-            innerhtml += `
-    <div class='col-4'>
-      <img src='${element.imagem}' />
-      <h4>${element.titulo}</h4>
-      <a href="/livros/livro/${encodeURIComponent(element.titulo)}">
-        <button class="btn-ver-mais">Ver mais</button>
-      </a>
-    </div>
-  `;
+            innerhtml =
+              innerhtml +
+              "<div class='col-4'>" +
+              "<img src='" +
+              element.imagem +
+              "'>" +
+              "<h4>" +
+              element.titulo +
+              "</h4>" +
+              "</div>";
+            console.log(element.autor);
           });
-
           divcarousel.innerHTML = innerhtml;
         },
         error: function () {

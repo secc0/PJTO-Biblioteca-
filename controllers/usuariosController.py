@@ -1,6 +1,7 @@
 from flask import session, request, jsonify, redirect, url_for, make_response, render_template, flash
 from models.usuarios import Usuarios
 
+
 def adicionar_usuario():
     try:
         dados = request.form
@@ -15,12 +16,12 @@ def adicionar_usuario():
         resposta, status = usuario.salvar()
         if status == 200:
             flash('Usuário cadastrado com sucesso!', 'sucesso')
-            return redirect(url_for('login'))
+            return redirect(url_for('front.login'))
 
 
         else:
             flash(resposta.get('mensagem', 'Erro ao salvar usuário.'), 'erro')
-            return redirect(url_for('usuarios.cadastro'))
+            return redirect(url_for('usuarios.cadastro_usuario'))
 
     except Exception as e:
         return f"Erro ao criar usuário: {str(e)}", 400
@@ -64,9 +65,13 @@ def processar_login():
         resultado = Usuarios.autenticar(email, senha)
 
         if resultado:
-            session['user'] = resultado['id']
-            session['perfil'] = resultado['perfil']
-            return redirect(url_for("listar"))
+            session['user'] = {
+                'id': resultado['id'],
+                'perfil': resultado['perfil'],
+                'email': email  # Opcional
+            }
+            session.modified = True
+            return redirect(url_for("front.listar"))
         else:
             return render_template("login.html", erro="Usuário ou senha incorretos.")
     except Exception as e:
