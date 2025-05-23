@@ -69,3 +69,22 @@ class Alugueis:
         except Exception as e:
             print(f"Erro ao listar aluguéis: {e}")
             return []
+
+    @staticmethod
+    def listar_por_usuario(usuario_id):
+        try:
+            if conexao.is_connected():
+                sql = """
+                    SELECT a.id, l.titulo, l.imagem, 
+                           a.data_aluguel, a.data_devolucao, a.devolvido
+                    FROM alugueis a
+                    JOIN livros l ON a.livro_id = l.id
+                    WHERE a.usuario_id = %s
+                    ORDER BY a.data_aluguel DESC
+                """
+                cursor.execute(sql, (usuario_id,))
+                return cursor.fetchall()
+            return []
+        except Exception as e:
+            print(f"Erro ao listar aluguéis do usuário: {e}")
+            return []

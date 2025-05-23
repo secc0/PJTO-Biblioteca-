@@ -87,10 +87,10 @@ class Usuarios:
                 return {
                     'id': user_id,
                     'perfil': perfil,
-                    'email': email  # Adicione mais dados se necessário
+                    'email': email 
                 }
             else:
-                return None  # senha incorreta
+                return None  
         except Exception as e:
             print("Erro na autenticação:", e)
             return None

@@ -36,5 +36,4 @@ app.register_blueprint(alugueis_blueprint)
 app.register_blueprint(front_blueprint)
 
 if __name__ == "__main__":
-    print(app.url_map)  # Adicione isto antes do app.run()
     app.run(debug=True)

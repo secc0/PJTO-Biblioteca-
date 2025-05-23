@@ -31,4 +31,9 @@ def cadastro():
     return render_template('cadastro.html')
 
 
+@front_blueprint.route('/aluguel')
+@login_required
+def alugueis():
+    usuario = session.get('user')
+    return render_template('alugueis.html', usuario=usuario)
 

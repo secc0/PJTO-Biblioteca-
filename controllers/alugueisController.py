@@ -8,7 +8,6 @@ from mysql.connector import errors
 
 def alugar_livro():
     try:
-        # [1] Verificações iniciais
         if 'user' not in session:
             return "Usuário não autenticado.", 401
             
@@ -16,13 +15,11 @@ def alugar_livro():
         if not titulo_livro:
             return "Título do livro é obrigatório.", 400
 
-        # [2] Conexão com o banco
         conexao = conectar_bd()
         if not conexao:
             return "Erro ao conectar no banco.", 500
 
         try:
-            # [3] Consulta ÚNICA com JOIN para evitar múltiplas queries
             query = """
                 SELECT l.id, 
                        COUNT(a.id) > 0 as ja_alugado
@@ -45,7 +42,6 @@ def alugar_livro():
                 if ja_alugado:
                     return "Este livro já está alugado.", 409
                 
-                # [4] Registro do aluguel
                 cursor.execute("""
                     INSERT INTO alugueis 
                     (usuario_id, livro_id, data_aluguel, devolvido)
@@ -85,4 +81,30 @@ def listar_alugueis():
         alugueis = Alugueis.listar()
         return jsonify(alugueis)
     except Exception as e:
+        return jsonify({"erro": f"Erro ao listar aluguéis: {str(e)}"}), 400
+    
+def listar_alugueis_usuario():
+    try:
+        if 'user' not in session:
+            return jsonify({"erro": "Usuário não autenticado"}), 401
+
+        usuario_id = session['user']['id']
+        alugueis_raw = Alugueis.listar_por_usuario(usuario_id)
+
+        alugueis = []
+        for a in alugueis_raw:
+            alugueis.append({
+                "id": a[0],
+                "titulo": a[1],
+                "imagem": a[2],
+                "data_aluguel": a[3].strftime('%d/%m/%Y %H:%M') if a[3] else None,
+                "data_devolucao": a[4].strftime('%d/%m/%Y %H:%M') if a[4] else None,
+                "devolvido": bool(a[5])
+            })
+
+        print("DEBUG - Aluguéis formatados:", alugueis)  # 👈 Se quiser ver como ficou
+
+        return jsonify(alugueis)
+    except Exception as e:
+        print(f"Erro ao listar aluguéis do usuário: {str(e)}")
         return jsonify({"erro": f"Erro ao listar aluguéis: {str(e)}"}), 400

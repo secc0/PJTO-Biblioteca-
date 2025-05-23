@@ -1,0 +1,36 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 90%;
+  margin: 30px auto;
+}
+
+.alugueis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.aluguel-item {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.aluguel-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.info h3 {
+  margin-top: 10px;
+  font-size: 18px;
+}
