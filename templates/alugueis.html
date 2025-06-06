@@ -7,6 +7,13 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/alugueis.css') }}"
     />
+    <style>
+      .multa {
+        color: red;
+        font-weight: bold;
+        margin-top: 5px;
+      }
+    </style>
   </head>
   <body>
     <h1>Meus Aluguéis</h1>
@@ -20,31 +27,35 @@
 
           const container = document.getElementById("alugueis-container");
           container.innerHTML = ""; // limpa antes de preencher
+          container.className = "alugueis"; // aplica a classe do container
 
           dados.forEach((aluguel) => {
             const div = document.createElement("div");
-            div.className = "aluguel";
+            div.className = "aluguel-item"; // mudou aqui
 
             div.innerHTML = `
-            <img src="${aluguel.imagem}" alt="${aluguel.titulo}" width="100">
-            <div>
-              <h3>${aluguel.titulo}</h3>
-              <p><strong>Data do Aluguel:</strong> ${aluguel.data_aluguel}</p>
-              <p><strong>Data de Devolução:</strong> ${
-                aluguel.data_devolucao ?? "Não devolvido"
-              }</p>
-              <p><strong>Status:</strong> ${
-                aluguel.devolvido ? "Devolvido" : "Em posse"
-              }</p>
-              ${
-                !aluguel.devolvido
-                  ? `
-                <button onclick="devolverLivro(${aluguel.id})">Devolver Livro</button>
-              `
-                  : ""
-              }
-            </div>
-          `;
+        <img src="${aluguel.imagem}" alt="${aluguel.titulo}">
+        <div class="info"> 
+          <h3>${aluguel.titulo}</h3>
+          <p><strong>Data do Aluguel:</strong> ${aluguel.data_aluguel}</p>
+          <p><strong>Data de Devolução:</strong> ${
+            aluguel.data_devolucao ?? "Não devolvido"
+          }</p>
+          <p><strong>Status:</strong> ${
+            aluguel.devolvido ? "Devolvido" : "Em posse"
+          }</p>
+          ${
+            aluguel.multa
+              ? `<p class="multa">Multa por atraso na devolução: R$ 100,00</p>`
+              : ""
+          }
+          ${
+            !aluguel.devolvido
+              ? `<button onclick="devolverLivro(${aluguel.id})">Devolver Livro</button>`
+              : ""
+          }
+        </div>
+      `;
 
             container.appendChild(div);
           });

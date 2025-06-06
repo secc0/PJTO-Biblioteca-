@@ -1,5 +1,6 @@
 from config import conexao, cursor
-from datetime import datetime
+from datetime import datetime, timedelta
+
 
 class Alugueis:
     def __init__(self, usuario_id, livro_id):
@@ -70,20 +71,55 @@ class Alugueis:
             print(f"Erro ao listar aluguéis: {e}")
             return []
 
+
     @staticmethod
     def listar_por_usuario(usuario_id):
         try:
             if conexao.is_connected():
                 sql = """
                     SELECT a.id, l.titulo, l.imagem, 
-                           a.data_aluguel, a.data_devolucao, a.devolvido
+                        a.data_aluguel, a.data_devolucao, a.devolvido, a.multa
                     FROM alugueis a
                     JOIN livros l ON a.livro_id = l.id
                     WHERE a.usuario_id = %s
                     ORDER BY a.data_aluguel DESC
                 """
                 cursor.execute(sql, (usuario_id,))
-                return cursor.fetchall()
+                registros = cursor.fetchall()
+
+                alugueis = []
+                agora = datetime.now()
+
+                for r in registros:
+                    aluguel_id = r[0]
+                    titulo = r[1]
+                    imagem = r[2]
+                    data_aluguel = r[3]
+                    data_devolucao = r[4]
+                    devolvido = bool(r[5])
+                    multa_atual = bool(r[6])
+
+                    multa = multa_atual  # mantém o valor atual por padrão
+
+                    if data_aluguel:
+                        if (agora - data_aluguel) > timedelta(days=30):
+                            multa = True
+                            if multa != multa_atual:
+                                update_sql = "UPDATE alugueis SET multa = %s WHERE id = %s"
+                                cursor.execute(update_sql, (True, aluguel_id))
+                                conexao.commit()
+
+                    alugueis.append({
+                        "id": aluguel_id,
+                        "titulo": titulo,
+                        "imagem": imagem,
+                        "data_aluguel": data_aluguel,
+                        "data_devolucao": data_devolucao,
+                        "devolvido": devolvido,
+                        "multa": multa
+                    })
+
+                return alugueis
             return []
         except Exception as e:
             print(f"Erro ao listar aluguéis do usuário: {e}")
