@@ -94,15 +94,14 @@ def listar_alugueis_usuario():
         alugueis = []
         for a in alugueis_raw:
             alugueis.append({
-                "id": a[0],
-                "titulo": a[1],
-                "imagem": a[2],
-                "data_aluguel": a[3].strftime('%d/%m/%Y %H:%M') if a[3] else None,
-                "data_devolucao": a[4].strftime('%d/%m/%Y %H:%M') if a[4] else None,
-                "devolvido": bool(a[5])
+                "id": a["id"],
+                "titulo": a["titulo"],
+                "imagem": a["imagem"],
+                "data_aluguel": a["data_aluguel"].strftime('%d/%m/%Y %H:%M') if a["data_aluguel"] else None,
+                "data_devolucao": a["data_devolucao"].strftime('%d/%m/%Y %H:%M') if a["data_devolucao"] else None,
+                "devolvido": a["devolvido"],
+                "multa": a["multa"]
             })
-
-        print("DEBUG - Aluguéis formatados:", alugueis)  # 👈 Se quiser ver como ficou
 
         return jsonify(alugueis)
     except Exception as e:
