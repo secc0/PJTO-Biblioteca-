@@ -63,8 +63,8 @@
     <div class="row">
         {% for livro in livros_populares %}
         <div class="col-4">
-            <img src="{{ livro.imagem or 'https://via.placeholder.com/150' }}" alt="{{ livro.titulo }}">
-            <h4>{{ livro.titulo }}</h4>
+            <img onclick="window.location.href='/login'" src="{{ livro.imagem or 'https://via.placeholder.com/150' }}" alt="{{ livro.titulo }}" style="cursor:pointer;">
+            <h4 onclick="window.location.href='/login'" style="cursor:pointer;">{{ livro.titulo }}</h4>
             <p>Alugado {{ livro.total_alugueis }} vezes</p>
         </div>
         {% endfor %}
