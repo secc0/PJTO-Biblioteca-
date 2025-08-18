@@ -1,13 +1,16 @@
 from flask import Flask, render_template, session, Blueprint, redirect, url_for
 from decorators.autenticacao import login_required, somente_admin
 from dotenv import load_dotenv
+from controllers.livrosController import livros_populares
 
 load_dotenv()
 front_blueprint = Blueprint('front', __name__)
 
 @front_blueprint.route("/", methods=["GET"])
 def home():
-    return render_template("index.html")
+    from controllers.livrosController import livros_populares
+    livros = livros_populares()  # pega os livros mais alugados
+    return render_template("index.html", livros_populares=livros)
 
 @front_blueprint.route('/login')
 def login():

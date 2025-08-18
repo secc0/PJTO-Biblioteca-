@@ -56,30 +56,20 @@
             </div>
         </div>
     </div>
-    <div class="small-container">
-        <br>
-        <h2 class="titulo" id="em-destaque">Produtos Em Destaque</h2>
-        <br><br>
-        <div class="row">
-            <div class="col-4">
-                <img src="https://faroeditorial.com.br/site2020/wp-content/uploads/2020/11/O-Pequeno-Principe.jpg"
-                    alt="Livro 1">
-                <h4>O Pequeno Príncipe</h4>
-            </div>
-            <div class="col-4">
-                <img src="https://m.media-amazon.com/images/I/81ql6xkkliL._AC_UF1000,1000_QL80_.jpg" alt="Livro 2">
-                <h4>A seleção</h4>
-            </div>
-            <div class="col-4">
-                <img src="https://m.media-amazon.com/images/I/81FH6q0EqYS._AC_UF1000,1000_QL80_.jpg" alt="Livro 3">
-                <h4>O Príncipe Cruel</h4>
-            </div>
-            <div class="col-4">
-                <img src="https://m.media-amazon.com/images/I/A1ajQ9OHOIL._AC_UF1000,1000_QL80_.jpg" alt="Livro 4">
-                <h4>A Garota no Trem</h4>
-            </div>
+<div class="small-container">
+    <br>
+    <h2 class="titulo" id="em-destaque">Mais Alugados</h2>
+    <br><br>
+    <div class="row">
+        {% for livro in livros_populares %}
+        <div class="col-4">
+            <img src="{{ livro.imagem or 'https://via.placeholder.com/150' }}" alt="{{ livro.titulo }}">
+            <h4>{{ livro.titulo }}</h4>
+            <p>Alugado {{ livro.total_alugueis }} vezes</p>
         </div>
+        {% endfor %}
     </div>
+</div>
 
     <footer>
         <div class="container" id="sobre">

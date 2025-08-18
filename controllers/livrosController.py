@@ -1,5 +1,6 @@
 from flask import request, jsonify, redirect, url_for, render_template
 from models.livros import Livros
+from config import conectar_bd
 
 def homeLivros():
     return "<p>Hello, World!</p>"
@@ -72,5 +73,12 @@ def listar_um_livro(titulo):
     except Exception as e:
         print(f"Erro: {e}")
         return "Erro ao carregar livro", 500
-
-
+    
+def livros_populares():
+    conexao = conectar_bd()
+    try:
+        with conexao.cursor(dictionary=True) as cursor:
+            cursor.execute("SELECT * FROM livros_populares;")
+            return cursor.fetchall()
+    finally:
+        conexao.close()

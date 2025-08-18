@@ -5,7 +5,8 @@ from controllers.livrosController import (
     deletar_livro,
     atualizar_livro,
     listar_livros,
-    listar_um_livro
+    listar_um_livro,
+    livros_populares
 )
 from decorators.autenticacao import login_required, somente_admin
 
@@ -38,3 +39,8 @@ def listar_livros_json():
 @login_required
 def pagina_livro(titulo):
     return listar_um_livro(titulo)
+
+@livros_blueprint.route("/populares", methods=["GET"])
+def get_livros_populares():
+    return livros_populares()
+

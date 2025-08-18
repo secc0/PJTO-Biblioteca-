@@ -35,5 +35,7 @@ app.register_blueprint(usuarios_blueprint)
 app.register_blueprint(alugueis_blueprint)
 app.register_blueprint(front_blueprint)
 
+
 if __name__ == "__main__":
     app.run(debug=True)
+
