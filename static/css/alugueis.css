@@ -106,3 +106,36 @@ button:hover {
     max-width: 350px;
   }
 }
+
+.avaliacao-item {
+  margin: 15px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  text-align: center;
+  background: #f9f9f9;
+}
+
+.avaliacao-item h3 {
+  margin-bottom: 10px;
+}
+
+.avaliacao-item button {
+  margin: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.avaliacao-item button:first-of-type {
+  background-color: #4caf50;
+  color: white;
+}
+
+.avaliacao-item button:last-of-type {
+  background-color: #f44336;
+  color: white;
+}
+

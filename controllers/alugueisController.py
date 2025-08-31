@@ -100,7 +100,8 @@ def listar_alugueis_usuario():
                 "data_aluguel": a["data_aluguel"].strftime('%d/%m/%Y %H:%M') if a["data_aluguel"] else None,
                 "data_devolucao": a["data_devolucao"].strftime('%d/%m/%Y %H:%M') if a["data_devolucao"] else None,
                 "devolvido": a["devolvido"],
-                "multa": a["multa"]
+                "multa": a["multa"],
+                "livro_id": a["livro_id"]
             })
 
         return jsonify(alugueis)

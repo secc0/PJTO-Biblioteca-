@@ -65,14 +65,16 @@ def listar_livros():
         return jsonify({"erro": f"Erro ao listar livros: {str(e)}"}), 400
 
 def listar_um_livro(titulo):
+    conexao = conectar_bd()
     try:
-        livro = Livros.buscar_livro(titulo)
-        if not livro:
-            return "Livro não encontrado", 404
-        return render_template("livro.html", livro=livro)
-    except Exception as e:
-        print(f"Erro: {e}")
-        return "Erro ao carregar livro", 500
+        with conexao.cursor(dictionary=True) as cursor:
+            cursor.execute("SELECT * FROM livros_avaliacoes WHERE titulo = %s;", (titulo,))
+            livro = cursor.fetchone()
+            if not livro:
+                return "Livro não encontrado", 404
+            return render_template("livro.html", livro=livro)
+    finally:
+        conexao.close()
     
 def livros_populares():
     conexao = conectar_bd()

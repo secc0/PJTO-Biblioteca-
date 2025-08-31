@@ -78,7 +78,8 @@ class Alugueis:
             if conexao.is_connected():
                 sql = """
                     SELECT a.id, l.titulo, l.imagem, 
-                        a.data_aluguel, a.data_devolucao, a.devolvido, a.multa
+                        a.data_aluguel, a.data_devolucao, a.devolvido, a.multa,
+                        a.livro_id
                     FROM alugueis a
                     JOIN livros l ON a.livro_id = l.id
                     WHERE a.usuario_id = %s
@@ -98,6 +99,7 @@ class Alugueis:
                     data_devolucao = r[4]
                     devolvido = bool(r[5])
                     multa_atual = bool(r[6])
+                    livro_id = r[7]
 
                     multa = multa_atual  # mantém o valor atual por padrão
 
@@ -116,7 +118,8 @@ class Alugueis:
                         "data_aluguel": data_aluguel,
                         "data_devolucao": data_devolucao,
                         "devolvido": devolvido,
-                        "multa": multa
+                        "multa": multa,
+                        "livro_id": livro_id
                     })
 
                 return alugueis

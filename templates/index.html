@@ -65,7 +65,7 @@
         <div class="col-4">
             <img onclick="window.location.href='/login'" src="{{ livro.imagem or 'https://via.placeholder.com/150' }}" alt="{{ livro.titulo }}" style="cursor:pointer;">
             <h4 onclick="window.location.href='/login'" style="cursor:pointer;">{{ livro.titulo }}</h4>
-            <p>Alugado {{ livro.total_alugueis }} vezes</p>
+            <p>(alugado {{ livro.total_alugueis }} vezes)</p>
         </div>
         {% endfor %}
     </div>
