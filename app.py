@@ -4,6 +4,7 @@ from routes.usuariosRoutes import usuarios_blueprint
 from routes.alugueisRoutes import alugueis_blueprint
 from routes.frontRoutes import front_blueprint
 from routes.avaliacoesRoutes import avaliacoes_blueprint
+from routes.favoritosRoutes import favoritos_blueprint
 
 
 from decorators.autenticacao import login_required, somente_admin
@@ -37,6 +38,7 @@ app.register_blueprint(usuarios_blueprint)
 app.register_blueprint(alugueis_blueprint)
 app.register_blueprint(front_blueprint)
 app.register_blueprint(avaliacoes_blueprint)
+app.register_blueprint(favoritos_blueprint)
 
 if __name__ == "__main__":
     app.run(debug=True)
